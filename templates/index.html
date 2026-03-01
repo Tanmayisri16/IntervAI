@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interview Copilot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h1 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        nav div a {
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+        .btn-outline {
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: #0f2027;
+        }
+
+        .btn-filled {
+            background: #00c6ff;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .btn-filled:hover {
+            background: #00a2d3;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 85vh;
+            padding: 20px;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero-content h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #d1d1d1;
+        }
+
+        .hero-content button {
+            padding: 14px 32px;
+            font-size: 16px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            background: #00c6ff;
+            font-weight: 600;
+            transition: 0.3s ease;
+            box-shadow: 0 0 20px rgba(0,198,255,0.4);
+        }
+
+        .hero-content button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0,198,255,0.7);
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 80px 8%;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .features h3 {
+            font-size: 34px;
+            margin-bottom: 60px;
+            font-weight: 600;
+        }
+
+        .feature-cards {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.08);
+            padding: 40px 25px;
+            border-radius: 16px;
+            width: 280px;
+            transition: 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .card h4 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #d8d8d8;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: rgba(0,0,0,0.3);
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px) {
+            .hero-content h2 {
+                font-size: 32px;
+            }
+
+            .feature-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <h1>Interview Copilot</h1>
+        <div>
+            <a href="/login" class="btn-outline">Login</a>
+            <a href="/signup" class="btn-filled">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Your AI Interview Assistant 🚀</h2>
+            <p>
+                Practice smarter with AI-driven interview simulations.
+                Get role-specific questions, instant feedback, and improve
+                your confidence before the real interview.
+            </p>
+            <button onclick="location.href='/signup'">Get Started</button>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <h3>Why Choose Interview Copilot?</h3>
+
+        <div class="feature-cards">
+            <div class="card">
+                <h4>🤖 AI-Powered Questions</h4>
+                <p>Dynamic interview questions tailored to your resume and job role.</p>
+            </div>
+
+            <div class="card">
+                <h4>📊 Instant Feedback</h4>
+                <p>Real-time scoring, strengths analysis, and actionable suggestions.</p>
+            </div>
+
+            <div class="card">
+                <h4>📝 Resume-Based Analysis</h4>
+                <p>Upload your resume and receive personalized interview preparation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 Interview Copilot | Built for Hackathon 🚀
+    </footer>
+
+</body>
+</html>

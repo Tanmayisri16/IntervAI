@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard | Interview Copilot</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+}
+
+/* NAVBAR */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 8%;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(12px);
+}
+
+nav h1{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:0.5px;
+}
+
+nav a{
+    text-decoration:none;
+    color:white;
+    padding:8px 20px;
+    border-radius:25px;
+    border:1px solid rgba(255,255,255,0.4);
+    transition:0.3s ease;
+}
+
+nav a:hover{
+    background:white;
+    color:#0f2027;
+}
+
+/* DASHBOARD SECTION */
+.dashboard{
+    padding:80px 8%;
+}
+
+.welcome h2{
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.welcome p{
+    color:#d0d0d0;
+    max-width:600px;
+    margin-bottom:30px;
+    font-size:16px;
+}
+
+/* BUTTON */
+.primary-btn{
+    display:inline-block;
+    padding:14px 35px;
+    background:#00c6ff;
+    color:black;
+    font-weight:600;
+    border-radius:35px;
+    text-decoration:none;
+    transition:0.3s ease;
+}
+
+.primary-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 25px rgba(0,198,255,0.4);
+}
+
+/* CARDS */
+.stats{
+    display:flex;
+    gap:30px;
+    margin-top:60px;
+    flex-wrap:wrap;
+}
+
+.card{
+    flex:1;
+    min-width:260px;
+    padding:35px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    transition:0.3s ease;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,0.4);
+}
+
+.card h3{
+    font-size:40px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:14px;
+    color:#cfcfcf;
+    letter-spacing:0.5px;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .stats{
+        flex-direction:column;
+    }
+
+    .welcome h2{
+        font-size:30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h1>Interview Copilot</h1>
+    <a href="/logout">Logout</a>
+</nav>
+
+<section class="dashboard">
+
+    <div class="welcome">
+        <h2>Welcome Back {{ user_name }} 👋</h2>
+        <p>Upload your resume and let our AI recommend the best roles for you before starting your mock interview.</p>
+        <a href="/upload" class="primary-btn">Upload Resume</a>
+    </div>
+
+    <div class="stats">
+        <div class="card">
+            <h3>{{ mock_interviews }}</h3>
+            <p>Mock Interviews Taken</p>
+        </div>
+
+        <div class="card">
+            <h3>{{ average_score }}%</h3>
+            <p>Average Performance Score</p>
+        </div>
+
+        <div class="card">
+            <h3>{{ roles_recommended }}</h3>
+            <p>Roles Recommended</p>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

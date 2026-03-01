@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Copilot</title>
+
+<style>
+/* (Your same CSS — unchanged) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    width: 100%;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 500px;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    text-align: center;
+    color: white;
+}
+
+.upload-wrapper {
+    border: 2px dashed rgba(255,255,255,0.5);
+    border-radius: 12px;
+    padding: 35px 20px;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.btn {
+    margin-top: 30px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">🚀 Interview Copilot</div>
+</div>
+
+<div class="wrapper">
+    <div class="container">
+        <h1>Upload Your Resume</h1>
+        <p>Upload your resume to get AI-recommended roles and start your mock interview.</p>
+
+        <!-- 🔥 IMPORTANT FORM STARTS HERE -->
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="upload-wrapper" onclick="document.getElementById('resumeInput').click()">
+                <span>Click to Select Resume (PDF)</span>
+                <div id="fileName">No file selected</div>
+            </div>
+
+            <!-- MUST HAVE name="resume" -->
+            <input type="file" name="resume" id="resumeInput" accept=".pdf" required>
+
+            <button type="submit" class="btn">Analyze Resume</button>
+
+        </form>
+        <!-- 🔥 FORM ENDS HERE -->
+
+    </div>
+</div>
+
+<script>
+const resumeInput = document.getElementById("resumeInput");
+const fileName = document.getElementById("fileName");
+
+resumeInput.addEventListener("change", function() {
+    fileName.textContent = this.files.length > 0 ? this.files[0].name : "No file selected";
+});
+</script>
+
+</body>
+</html>

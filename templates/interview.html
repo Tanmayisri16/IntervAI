@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock Interview</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 900px;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    color: white;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    font-size: 26px;
+}
+
+.role-badge {
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    font-weight: 600;
+}
+
+.main-content {
+    display: flex;
+    gap: 30px;
+}
+
+/* Question Section */
+.question-section {
+    flex: 2;
+}
+
+.question-card {
+    padding: 25px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.1);
+    font-size: 18px;
+    margin-bottom: 20px;
+    min-height: 100px;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.next-btn {
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+}
+
+.end-btn {
+    background: linear-gradient(90deg, #ff4b2b, #ff416c);
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Video Section */
+.video-section {
+    flex: 1;
+    text-align: center;
+}
+
+.video-box {
+    width: 100%;
+    height: 250px;
+    border-radius: 15px;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.mic-status {
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.2);
+    display: inline-block;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h2>🎤 AI Mock Interview</h2>
+        <div class="role-badge">{{ role }}</div>
+    </div>
+
+    <div class="main-content">
+
+        <!-- Question Section -->
+        <div class="question-section">
+
+            <div class="question-card" id="questionCard">
+                {{ questions[0] if questions|length > 0 else "No questions available." }}
+            </div>
+
+            <div class="controls">
+                <button class="btn next-btn" onclick="nextQuestion()">Next Question</button>
+                <button class="btn next-btn" onclick="startRecording()">Start Answer</button>
+                <button class="btn end-btn" onclick="stopRecording()">Submit Interview</button>
+            </div>
+
+        </div>
+
+        <!-- Video Section -->
+        <div class="video-section">
+
+    <video id="video" autoplay muted class="video-box"></video>
+
+    <div class="mic-status" id="micStatus">
+        🎙 Mic Active
+    </div>
+
+</div>
+
+    </div>
+
+</div>
+
+<script>
+const questions = {{ questions | tojson }};
+let currentIndex = 0;
+let mediaRecorder;
+let audioChunks = [];
+
+function nextQuestion() {
+    currentIndex++;
+    if (currentIndex < questions.length) {
+        document.getElementById("questionCard").innerText = questions[currentIndex];
+    } else {
+        document.getElementById("questionCard").innerText = "Interview Completed!";
+    }
+}
+
+// 🎥 CAMERA + 🎤 ACCESS
+async function startMedia() {
+    const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+    });
+
+    document.getElementById("video").srcObject = stream;
+
+    mediaRecorder = new MediaRecorder(stream);
+
+    mediaRecorder.ondataavailable = event => {
+        audioChunks.push(event.data);
+    };
+
+    mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+        audioChunks = [];
+
+        const formData = new FormData();
+        formData.append("audio", audioBlob);
+
+        await fetch("/upload_audio", {
+            method: "POST",
+            body: formData
+        });
+
+        window.location.href = "/feedback";
+    };
+}
+
+function startRecording() {
+    audioChunks = [];
+    mediaRecorder.start();
+    document.getElementById("micStatus").innerText = "🔴 Recording...";
+}
+
+function stopRecording() {
+    mediaRecorder.stop();
+    document.getElementById("micStatus").innerText = "Processing...";
+}
+
+startMedia();
+</script>
+
+</body>
+</html>

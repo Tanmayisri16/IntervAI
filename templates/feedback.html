@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Feedback</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 750px;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    color: white;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.scores {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.score-card {
+    flex: 1;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.1);
+    text-align: center;
+}
+
+.score-value {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #00c6ff;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+}
+
+.overall {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.overall-score {
+    font-size: 40px;
+    font-weight: bold;
+    color: #00c6ff;
+}
+
+.suggestions {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.suggestions h3 {
+    margin-bottom: 10px;
+    color: #00c6ff;
+}
+
+.suggestions ul {
+    list-style: none;
+}
+
+.suggestions li {
+    margin-bottom: 8px;
+}
+
+.btn {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    padding: 12px;
+    border-radius: 30px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,198,255,0.4);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>📊 Interview Feedback</h2>
+
+    <!-- Overall Score -->
+    <div class="overall">
+        <div>Overall Performance</div>
+        {% set overall = (technical + communication + confidence) // 3 %}
+        <div class="overall-score">{{ overall }}/100</div>
+    </div>
+
+    <!-- Individual Scores -->
+    <div class="scores">
+
+        <div class="score-card">
+            <h3>Technical</h3>
+            <div class="score-value">{{ technical }}/100</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: {{ technical }}%"></div>
+            </div>
+        </div>
+
+        <div class="score-card">
+            <h3>Communication</h3>
+            <div class="score-value">{{ communication }}/100</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: {{ communication }}%"></div>
+            </div>
+        </div>
+
+        <div class="score-card">
+            <h3>Confidence</h3>
+            <div class="score-value">{{ confidence }}/100</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: {{ confidence }}%"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- AI Suggestions -->
+    <div class="suggestions">
+        <h3>💡 AI Suggestions to Improve</h3>
+        <ul>
+            {% if technical < 70 %}
+            <li>• Improve your technical depth and provide structured explanations.</li>
+            {% endif %}
+            {% if communication < 70 %}
+            <li>• Work on clarity, reduce filler words, and maintain steady pace.</li>
+            {% endif %}
+            {% if confidence < 70 %}
+            <li>• Maintain eye contact and speak with more assertiveness.</li>
+            {% endif %}
+            {% if overall >= 80 %}
+            <li>• Excellent performance! Keep refining your answers.</li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <a href="{{ url_for('dashboard') }}" class="btn">
+        Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>
